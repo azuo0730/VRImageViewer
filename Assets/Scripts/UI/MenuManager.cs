@@ -4,6 +4,7 @@ using UnityEngine;
 
 using System.IO;
 using System;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class MenuManager : MonoBehaviour {
 
 	[SerializeField]
 	Transform					fileContentTargetTransform = null;
+	[SerializeField]
+	ScrollRect					contentSctollRect = null;
 
 
 	private string				m_currentSearchPath;
@@ -60,6 +63,10 @@ public class MenuManager : MonoBehaviour {
 		{
 			CreateFileContent(fileInfo.FullName, OnTapFileContent);
 		}
+
+		// スクロール位置リセット
+		contentSctollRect.verticalNormalizedPosition = 1.0f;
+		contentSctollRect.horizontalNormalizedPosition = 1.0f;
 	}
 
 	/// <summary>
@@ -82,7 +89,6 @@ public class MenuManager : MonoBehaviour {
 	/// <param name="displayName">表示名</param>
 	void CreateDirectoryContent(string path, Action<ContentBase> onTap, string displayName=null)
 	{
-		// 再作成
 		var obj = Instantiate(directoryContentPrefab, fileContentTargetTransform);
 		var contentComponent = obj.GetComponent<ContentBase>();
 		contentComponent.Init(path, onTap, displayName);
@@ -94,11 +100,6 @@ public class MenuManager : MonoBehaviour {
 	/// <param name="content"></param>
 	void OnTapFileContent(ContentBase content)
 	{
-		var newPath = content.Path;
-		if( !string.IsNullOrEmpty( newPath ) )
-		{
-			ShowDirectoryAndFileList( newPath );
-		}
 	}
 	/// <summary>
 	/// ファイルコンテントを作成する
@@ -108,7 +109,6 @@ public class MenuManager : MonoBehaviour {
 	/// <param name="displayName">表示名</param>
 	void CreateFileContent(string path, Action<ContentBase> onTap, string displayName=null)
 	{
-		// 再作成
 		var obj = Instantiate(fileContentPrefab, fileContentTargetTransform);
 		var contentComponent = obj.GetComponent<ContentBase>();
 		contentComponent.Init(path, onTap, displayName);

@@ -736,6 +736,7 @@ MonoBehaviour:
   directoryContentPrefab: {fileID: 1683302514149360, guid: 378c63dea5e50a542a65a3821069154e,
     type: 2}
   fileContentTargetTransform: {fileID: 89055199}
+  contentSctollRect: {fileID: 56828043}
 --- !u!4 &1675893216
 Transform:
   m_ObjectHideFlags: 0

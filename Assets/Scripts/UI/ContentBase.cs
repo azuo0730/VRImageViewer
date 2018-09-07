@@ -36,7 +36,7 @@ public class ContentBase : MonoBehaviour {
 		// 名前
 		if( string.IsNullOrEmpty(displayName) )
 		{
-			displayName = System.IO.Path.GetFileNameWithoutExtension( path );
+			displayName = System.IO.Path.GetFileName( path );
 		}
 		nameTextComponent.text = displayName;
 
