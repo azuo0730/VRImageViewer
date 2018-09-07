@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FileContent : MonoBehaviour {
+public class FileContent : ContentBase {
 
 	// Use this for initialization
 	void Start () {

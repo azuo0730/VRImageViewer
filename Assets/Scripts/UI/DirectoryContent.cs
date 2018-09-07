@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectoryContent : MonoBehaviour {
+public class DirectoryContent : ContentBase {
 
 	// Use this for initialization
 	void Start () {
