@@ -46,7 +46,7 @@ public class ContentBase : MonoBehaviour {
 
 		// タップ時のアクション
 		var buttonComponent = GetComponent<Button>();
-		if( buttonComponent != null )
+		if( CommonUtility.CheckNull(buttonComponent) == false )
 		{
 			buttonComponent.onClick.AddListener(OnTapThis);
 		}

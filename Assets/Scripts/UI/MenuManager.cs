@@ -27,6 +27,20 @@ public class MenuManager : MonoBehaviour {
 
 	private string				m_currentSearchPath;
 
+
+	private float m_imageObjectHeight = 400.0f;
+	public float ImageObjectHeight
+	{
+		set
+		{
+			m_imageObjectHeight = value;
+		}
+		get
+		{
+			return m_imageObjectHeight;
+		}
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -134,9 +148,10 @@ public class MenuManager : MonoBehaviour {
 		var instance = Instantiate(imageObjectPrefab, imageObjectTargetTransform);
 		if( CommonUtility.CheckNull(instance) ) return;
 
-		var renderer = instance.GetComponentInChildren<MeshRenderer>();
-		if( CommonUtility.CheckNull(renderer) ) return;
-		renderer.material.mainTexture = tex;
+		var imageObject = instance.GetComponent<ImageObject>();
+		if( CommonUtility.CheckNull(imageObject) ) return;
+
+		imageObject.Init(tex, m_imageObjectHeight);
 	}
 
 	/// <summary>
