@@ -22,6 +22,8 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField]
 	Transform					imageObjectTargetTransform = null;
 
+	[SerializeField]
+	MenuToggleBtn				menuToggleBtn = null;
 
 	private string				m_currentSearchPath;
 
@@ -30,6 +32,8 @@ public class MenuManager : MonoBehaviour {
 	{
 		m_currentSearchPath = Application.dataPath;
 		ShowDirectoryAndFileList( m_currentSearchPath );
+
+		menuToggleBtn.Open();
 	}
 	
 	// Update is called once per frame
