@@ -18,9 +18,13 @@ public class ContentBase : MonoBehaviour {
 
 
 	/// <summary>
-	/// 
+	/// コンテントのフルパス
 	/// </summary>
 	public string Path
+	{
+		private set; get;
+	}
+	public string DisplayName
 	{
 		private set; get;
 	}
@@ -48,6 +52,7 @@ public class ContentBase : MonoBehaviour {
 		}
 
 		Path = path;
+		DisplayName = displayName;
 		m_onTapThis = onTap;
 	}
 

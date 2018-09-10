@@ -12,11 +12,15 @@ public class MenuManager : MonoBehaviour {
 	GameObject					fileContentPrefab = null;
 	[SerializeField]
 	GameObject					directoryContentPrefab = null;
+	[SerializeField]
+	GameObject					imageObjectPrefab = null;
 
 	[SerializeField]
 	Transform					fileContentTargetTransform = null;
 	[SerializeField]
 	ScrollRect					contentSctollRect = null;
+	[SerializeField]
+	Transform					imageObjectTargetTransform = null;
 
 
 	private string				m_currentSearchPath;
@@ -100,6 +104,7 @@ public class MenuManager : MonoBehaviour {
 	/// <param name="content"></param>
 	void OnTapFileContent(ContentBase content)
 	{
+		CreateImageObj(content.Path);
 	}
 	/// <summary>
 	/// ファイルコンテントを作成する
@@ -111,6 +116,47 @@ public class MenuManager : MonoBehaviour {
 	{
 		var obj = Instantiate(fileContentPrefab, fileContentTargetTransform);
 		var contentComponent = obj.GetComponent<ContentBase>();
+		if( CommonUtility.CheckNull(contentComponent) ) return;
+
 		contentComponent.Init(path, onTap, displayName);
+	}
+
+	void CreateImageObj(string path)
+	{
+		StartCoroutine(LoadTexture_IE(path, OnSuccessfulLoadTexture, null));
+	}
+	void OnSuccessfulLoadTexture(Texture2D tex)
+	{
+		var instance = Instantiate(imageObjectPrefab, imageObjectTargetTransform);
+		if( CommonUtility.CheckNull(instance) ) return;
+
+		var renderer = instance.GetComponentInChildren<MeshRenderer>();
+		if( CommonUtility.CheckNull(renderer) ) return;
+		renderer.material.mainTexture = tex;
+	}
+
+	/// <summary>
+	/// 画像の読み込み
+	/// </summary>
+	/// <param name="path">読み込みたい画像のパス</param>
+	/// <param name="onFinish">読み込み完了時</param>
+	/// <returns></returns>
+	IEnumerator LoadTexture_IE(string path, Action<Texture2D> onSuccessful, Action onFailed)
+	{
+		var www = new WWW( "file://" + path);
+		yield return www;
+
+		if( string.IsNullOrEmpty(www.error) )
+		{
+			if( onSuccessful != null )
+			{
+				onSuccessful( www.texture );
+			}
+		}else{
+			if( onFailed != null )
+			{
+				onFailed();
+			}
+		}
 	}
 }
