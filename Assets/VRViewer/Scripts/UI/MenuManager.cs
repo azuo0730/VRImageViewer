@@ -141,7 +141,7 @@ public class MenuManager : MonoBehaviour {
 
 	void CreateImageObj(string path)
 	{
-		StartCoroutine(LoadTexture_IE("file://" + path, OnSuccessfulLoadTexture, null));
+		StartCoroutine(NOB.File.GetInstance.LoadTexture_IE("file://" + path, OnSuccessfulLoadTexture, null));
 	}
 	void OnSuccessfulLoadTexture(Texture2D tex)
 	{
@@ -163,28 +163,4 @@ public class MenuManager : MonoBehaviour {
 		Destroy( imageObject.gameObject );
 	}
 
-	/// <summary>
-	/// 画像の読み込み
-	/// </summary>
-	/// <param name="path">読み込みたい画像のパス</param>
-	/// <param name="onFinish">読み込み完了時</param>
-	/// <returns></returns>
-	IEnumerator LoadTexture_IE(string path, Action<Texture2D> onSuccessful, Action onFailed)
-	{
-		var www = new WWW( path );
-		yield return www;
-
-		if( string.IsNullOrEmpty(www.error) )
-		{
-			if( onSuccessful != null )
-			{
-				onSuccessful( www.texture );
-			}
-		}else{
-			if( onFailed != null )
-			{
-				onFailed();
-			}
-		}
-	}
 }

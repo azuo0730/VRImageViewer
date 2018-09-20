@@ -17,7 +17,7 @@ public class ImageObject : MonoBehaviour
 	{
 		var button = GetComponent<Button>();
 		if( CommonUtility.CheckNull(button) ) return;
-		button.image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
+		button.image.sprite = CommonUtility.Texture2DToSprite(tex);
 		if( onTapThis != null ) button.onClick.AddListener(()=>{ onTapThis(this); });
 
 		float aspectRatio = (float)tex.width / (float)tex.height;

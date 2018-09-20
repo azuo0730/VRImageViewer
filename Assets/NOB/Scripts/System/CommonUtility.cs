@@ -77,4 +77,14 @@ public static class CommonUtility
 		var type = typeof(T);
 		return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
 	}
+
+	/// <summary>
+	/// Texture2D型を, Sprite型に変換する
+	/// </summary>
+	/// <param name="tex"></param>
+	/// <returns></returns>
+	public static Sprite Texture2DToSprite(Texture2D tex)
+	{
+		return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
+	}
 }
