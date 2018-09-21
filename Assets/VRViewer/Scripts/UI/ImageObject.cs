@@ -8,6 +8,12 @@ public class ImageObject : MonoBehaviour
 {
 	[SerializeField]
 	RectTransform							scaleTransform = null;
+	[SerializeField]
+	Image									drawImage = null;
+	[SerializeField]
+	bool									billboard = false;
+	[SerializeField]
+	Camera									billboardTargetCamera = null;				// (billboard == true && billboardTargetCamera == null) 時は, mainCameraを注視する
 
 	/// <summary>
 	/// 画像オブジェクトを初期化する
@@ -17,8 +23,10 @@ public class ImageObject : MonoBehaviour
 	{
 		var button = GetComponent<Button>();
 		if( CommonUtility.CheckNull(button) ) return;
-		button.image.sprite = CommonUtility.Texture2DToSprite(tex);
 		if( onTapThis != null ) button.onClick.AddListener(()=>{ onTapThis(this); });
+
+		// 画像の登録
+		drawImage.sprite = CommonUtility.Texture2DToSprite(tex);
 
 		// アス比を調整
 		float aspectRatio = (float)tex.width / (float)tex.height;
@@ -29,5 +37,20 @@ public class ImageObject : MonoBehaviour
 		if( CommonUtility.CheckNull(layoutElement) ) return;
 		layoutElement.preferredWidth = sizeDelta.x;
 		layoutElement.preferredHeight = sizeDelta.y;
+	}
+
+	private void Update()
+	{
+		if( billboard )
+		{
+			Camera targetCamera = billboardTargetCamera;
+			if( targetCamera == null ) targetCamera = Camera.main;
+
+			Vector3 targetPos = targetCamera.transform.position;
+			targetPos.y = drawImage.transform.position.y;											// y軸は回転しない
+			drawImage.transform.LookAt(targetPos);
+		}else{
+			drawImage.transform.rotation = Quaternion.identity;
+		}
 	}
 }
