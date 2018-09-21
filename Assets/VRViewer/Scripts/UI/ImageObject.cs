@@ -49,6 +49,7 @@ public class ImageObject : MonoBehaviour
 			Vector3 targetPos = targetCamera.transform.position;
 			targetPos.y = drawImage.transform.position.y;											// y軸は回転しない
 			drawImage.transform.LookAt(targetPos);
+			drawImage.transform.Rotate(0f, 180f, 0f);												// 普通にやると左右逆になっちゃうので, 反対を向かせる
 		}else{
 			drawImage.transform.rotation = Quaternion.identity;
 		}
