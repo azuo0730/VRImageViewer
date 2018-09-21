@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class FileContent : ContentBase
 {
-	[SerializeField]
-	Image					thumbnailImage = null;
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -21,20 +18,9 @@ public class FileContent : ContentBase
 		base.Init(path, onTap, displayName);
 
 		// もし画像ファイルなら, サムネイルを作成する
-		thumbnailImage.enabled = false;
 		if( NOB.File.GetInstance.IsImageFileFromFileName(path) )
 		{
-			StartCoroutine(NOB.File.GetInstance.LoadTexture_IE("file://" + path, OnSuccessfulLoadTexture, null));
+			StartCoroutine(NOB.File.GetInstance.LoadTexture_IE("file://" + path, OnSuccessfulLoadThumbnail, null));
 		}
-	}
-
-	/// <summary>
-	/// サムネイル画像読み込み成功時処理
-	/// </summary>
-	/// <param name="tex"></param>
-	void OnSuccessfulLoadTexture(Texture2D tex)
-	{
-		thumbnailImage.sprite = CommonUtility.Texture2DToSprite(tex);
-		thumbnailImage.enabled = true;
 	}
 }

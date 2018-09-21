@@ -20,9 +20,8 @@ public class ImageObject : MonoBehaviour
 		button.image.sprite = CommonUtility.Texture2DToSprite(tex);
 		if( onTapThis != null ) button.onClick.AddListener(()=>{ onTapThis(this); });
 
-		float aspectRatio = (float)tex.width / (float)tex.height;
-
 		// アス比を調整
+		float aspectRatio = (float)tex.width / (float)tex.height;
 		var sizeDelta = new Vector2(height*aspectRatio, height);
 		scaleTransform.sizeDelta = sizeDelta;
 
