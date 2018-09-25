@@ -126,3 +126,6 @@ public class InputManager : MonoBehaviour {
 		}
 	}
 }
+
+
+// 参考 http://www.noshimemo.com/entry/2017/05/23/202602
